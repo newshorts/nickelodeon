@@ -1,0 +1,16 @@
+/* 
+    Document   : style
+    Created on : Jul 27, 2012, 12:56:36 AM
+    Author     : newe1344
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+#wrap {
+    width: 1280px;
+    margin: 50px auto;
+}

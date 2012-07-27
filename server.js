@@ -4,30 +4,35 @@ var fs = require('fs'),
     io = require('socket.io').listen(app);
     
 var port = process.env.PORT || 5000;
+
+app.use('/', express.static(__dirname + '/public'));
+app.use(express.bodyParser());
+app.use(app.router);
+
 app.listen(port, function() {
     console.log("Listening on " + port);
 });
     
-io.configure(function () {
-    io.set("transports", ["xhr-polling"]); 
-    io.set("polling duration", 10); 
-});
+//io.configure(function () {
+//    io.set("transports", ["xhr-polling"]); 
+//    io.set("polling duration", 10); 
+//});
 
-app.use(express.static(__dirname + '/public'));
 
-app.get('/', function(req, res) {
-    res.sendfile(__dirname + '/public/index.html');
-});
 
-app.get('/ipad', function(req, res) {
-    // this is where I forward message from ipad to the rest of the application
-    
-    console.log(req);
-    // io.sockets.emit();
-});
+//app.get('*', function(req, res) {
+//    console.log(req);
+//    var filename = __dirname + '/public/index.html';
+//    res.contentType(filename);
+//    res.sendfile(__dirname + '/public/index.html');
+//});
 
 app.post('/ipad', function(req, res) {
-    console.log(req);
+    res.send('hello world');
+
+//    console.log("post request data");
+//    console.log(req.body);
+    io.sockets.emit('output', req.body);
 });
 
 io.sockets.on('connection', function(socket) {

@@ -6,35 +6,54 @@
     <head>
         <title></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-        <script src="/socket.io/socket.io.js"></script>
+        <script src="http://169.254.60.224:5000/socket.io/socket.io.js"></script>
         <script>
-            var socket = io.connect('169.254.231.139:5000');
-            socket.on('news', function (data) {
-                console.log(data);
-                socket.emit('my other event', { my: 'data' });
+            var vid,
+                canPlay = false,
+                duration;
+            
+            var socket = io.connect('169.254.60.224:5000');
+            
+            socket.on('output', function (data) {
+                
+                if(canPlay) {
+                    var num = (data.message * duration);
+                    num = num.toFixed(3);
+                    vid.currentTime = num;
+//                    console.log(num);
+                }
+                
             });
-        </script>
-        <script>
-            window.addEventListener('load', function() {
-                var button = document.getElementById('button');
+            
+            (function($) {
+                
+                $(window).load(function() {
+                    // video
+                    vid = document.getElementById('video');
+                    
+                    vid.addEventListener('canplaythrough', function(evt) {
+                        canPlay = true;
+                        duration = vid.duration;
+                        console.log('can play ' + canPlay);
+                        console.log('vid ' + vid);
+                        console.log('duration ' + vid.duration);
+                    }, false);
 
-                button.addEventListener('click', function(evt) {
-                    socket.emit('my other event', { my: 'data' });
-                }, false);
-
-                var time = 0;
-
-                setInterval(function() {
-                    time++;
-                    socket.emit('my other event', { my: 'timing event' + time });
-                }, 1);
-            }, false);
+                });
+            })(jQuery);
+            
         </script>
     </head>
     <body>
         <div id="wrap">
-            
+            <video id="video" width="1280" height="720" controls="controls">
+                <source src="videos/splash.mp4" type="video/mp4" />
+                <source src="videos/splash.webm" type="video/webm" />
+                <source src="videos/splash.ogv" type="video/ogv" />
+                Your browser does not support the video tag.
+            </video>
         </div>
     </body>
 </html>
