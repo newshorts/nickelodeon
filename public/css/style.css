@@ -13,4 +13,20 @@ root {
 #wrap {
     width: 1280px;
     margin: 50px auto;
+    position: relative;
+}
+
+#video {
+    -webkit-transform: translateZ(0);
+/*    -webkit-filter: hue-rotate(120deg);*/
+}
+
+#bar {
+    height: 100px;
+    width: 0;
+    position: absolute;
+    background-color: #F06;
+    opacity: 0.9;
+    top: 10px;
+    left: 0;
 }
