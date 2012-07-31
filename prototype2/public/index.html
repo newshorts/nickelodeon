@@ -3,17 +3,140 @@
 Author: Mike Newell © 2012
 
 -->
-Expression licensePrefix is undefined on line 4, column 3 in Templates/Licenses/license-default.txt.To change this template, choose Tools | Templates
-Expression licensePrefix is undefined on line 5, column 3 in Templates/Licenses/license-default.txt.and open the template in the editor.
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
+        <title>Node Server Running!</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
+        <style>
+            div {
+                border: 1px dashed red;
+            }
+            
+            #wrap {
+                width: 1280px;
+                height: 900px;
+                margin: 0 auto;
+                position: relative;
+            }
+            
+            .splat {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script src="http://localhost.com:5000/socket.io/socket.io.js"></script>
+        <script>
+            var vid,
+                canPlay = false,
+                duration,
+                bar,
+                theFlash;
+            
+            var socket = io.connect('169.254.60.224:5000');
+            
+            socket.on('output', function (data) {
+                
+                if(canPlay) {
+                    var num = (data.message * duration);
+                    num = num.toFixed(3);
+                    vid.currentTime = num;
+                    vid.style.webkitFilter = 'hue-rotate(' + data.message * 360 + 'deg)';
+                    bar.style.width = (1280 * data.message) + 'px';
+//                    console.log(num);
+                }
+                
+            });
+            
+            socket.on('splat', function(data) {
+                // run the code to activate a splat
+                console.log(data);
+                theFlash.splat();
+            });
+            
+            (function($) {
+                
+                $(window).load(function() {
+                    // video
+                    vid = document.getElementById('video');
+                    bar = document.getElementById('bar');
+                    theFlash = document.getElementById("theFlash");
+                    
+                    vid.addEventListener('canplaythrough', function(evt) {
+                        canPlay = true;
+                        duration = vid.duration;
+                        console.log('can play ' + canPlay);
+                        console.log('vid ' + vid);
+                        console.log('duration ' + vid.duration);
+                    }, false);
+                    
+                    var outputAnimations = function() {
+                        
+                            
+                        setInterval(function() {
+                            var randTop = Math.floor(Math.random() * 900 + 1);
+                            var randLeft = Math.floor(Math.random() * 1280 + 1);
+                            
+                            var html =  '<object class="splat" type="application/x-shockwave-flash" data="videos/splat.swf" width="713" height="400" style="top: '+randTop+'px; left: '+randLeft+'px;">';
+                                html +=     '<param name="movie" value="videos/splat.swf" />';
+                                html +=     '<param name="quality" value="high" />';
+                                html +=     '<param name="bgcolor" value="#cc0000" />';
+                                html +=     '<param name="play" value="true" />';
+                                html +=     '<param name="loop" value="true" />';
+                                html +=     '<param name="wmode" value="transparent" />';
+                                html +=     '<param name="scale" value="showall" />';
+                                html +=     '<param name="menu" value="true" />';
+                                html +=     '<param name="devicefont" value="false" />';
+                                html +=     '<param name="salign" value="" />';
+                                html +=     '<param name="allowScriptAccess" value="always" />';
+                                html += '</object>';
+                            
+                            $('#wrap').append(html);
+                        }, 2000);
+                    }
+                    
+//                    outputAnimations();
+
+                });
+            })(jQuery);
+            
+        </script>
     </head>
     <body>
-        <div>TODO write content</div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <div id="wrap">
+<!--            <video id="video" width="1280" height="720" controls="controls" autoplay="autoplay">
+                <source src="videos/splash.mp4" type="video/mp4" />
+                <source src="videos/splash.webm" type="video/webm" />
+                <source src="videos/splash.ogv" type="video/ogv" />
+                Your browser does not support the video tag.
+            </video>-->
+            <video id="video" width="1280" height="720" controls="controls" autoplay="autoplay" loop="loop">
+                <source src="videos/icarly.mp4" type="video/mp4" />
+                <source src="videos/icarly.webm" type="video/webm" />
+                <source src="videos/icarly.ogv" type="video/ogv" />
+                Your browser does not support the video tag.
+            </video>
+            
+            <object id="theFlash" class="splat" type="application/x-shockwave-flash" data="videos/splat.swf" width="1280" height="900">
+                    <param name="movie" value="videos/splat.swf" />
+                    <param name="quality" value="high" />
+                    <param name="bgcolor" value="#999999" />
+                    <param name="play" value="true" />
+                    <param name="loop" value="true" />
+                    <param name="wmode" value="transparent" />
+                    <param name="scale" value="showall" />
+                    <param name="menu" value="true" />
+                    <param name="devicefont" value="false" />
+                    <param name="salign" value="" />
+                    <param name="allowScriptAccess" value="always" />
+                    <a href="http://www.adobe.com/go/getflash">
+                            <img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" />
+                    </a>
+            </object>
+            
+            <div id="bar"></div>
+        </div>
     </body>
 </html>
