@@ -25,6 +25,6 @@ app.post('/splat', function(req, res) {
 
 io.sockets.on('connection', function(socket) {
     
-    
+    // do nothing
     
 });

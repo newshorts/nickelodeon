@@ -72,33 +72,6 @@ Author: Mike Newell © 2012
                         console.log('duration ' + vid.duration);
                     }, false);
                     
-                    var outputAnimations = function() {
-                        
-                            
-                        setInterval(function() {
-                            var randTop = Math.floor(Math.random() * 900 + 1);
-                            var randLeft = Math.floor(Math.random() * 1280 + 1);
-                            
-                            var html =  '<object class="splat" type="application/x-shockwave-flash" data="videos/splat.swf" width="713" height="400" style="top: '+randTop+'px; left: '+randLeft+'px;">';
-                                html +=     '<param name="movie" value="videos/splat.swf" />';
-                                html +=     '<param name="quality" value="high" />';
-                                html +=     '<param name="bgcolor" value="#cc0000" />';
-                                html +=     '<param name="play" value="true" />';
-                                html +=     '<param name="loop" value="true" />';
-                                html +=     '<param name="wmode" value="transparent" />';
-                                html +=     '<param name="scale" value="showall" />';
-                                html +=     '<param name="menu" value="true" />';
-                                html +=     '<param name="devicefont" value="false" />';
-                                html +=     '<param name="salign" value="" />';
-                                html +=     '<param name="allowScriptAccess" value="always" />';
-                                html += '</object>';
-                            
-                            $('#wrap').append(html);
-                        }, 2000);
-                    }
-                    
-//                    outputAnimations();
-
                 });
             })(jQuery);
             
@@ -119,7 +92,7 @@ Author: Mike Newell © 2012
                 Your browser does not support the video tag.
             </video>
             
-            <object id="theFlash" class="splat" type="application/x-shockwave-flash" data="videos/splat.swf" width="1280" height="900">
+            <object id="theFlash" class="splat" type="application/x-shockwave-flash" data="videos/splat.swf" width="1280" height="700">
                     <param name="movie" value="videos/splat.swf" />
                     <param name="quality" value="high" />
                     <param name="bgcolor" value="#999999" />
