@@ -56,6 +56,11 @@ Author: Mike Newell © 2012
                 theFlash.splat();
             });
             
+            socket.on('spitball', function(data) {
+                // run the code to activate a splat
+                console.log(data);
+            });
+            
             (function($) {
                 
                 $(window).load(function() {

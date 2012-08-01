@@ -23,6 +23,11 @@ app.post('/splat', function(req, res) {
     io.sockets.emit('splat', req.body);
 });
 
+app.post('/spitball', function(req, res) {
+    res.send('hello world');
+    io.sockets.emit('spitball', req.body);
+});
+
 io.sockets.on('connection', function(socket) {
     
     // do nothing
