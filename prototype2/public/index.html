@@ -9,15 +9,31 @@ Author: Mike Newell © 2012
         <title>Node Server Running!</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <style>
+            body {
+                background-color: black;
+            }
+            
             div {
-                border: 1px dashed red;
+                /*border: 1px dashed red;*/
             }
             
             #wrap {
-                width: 1280px;
-                height: 900px;
-                margin: 0 auto;
+                width: 1920px;
+                height: 1080px;
+                margin: 150px auto;
                 position: relative;
+            }
+            
+            video {
+                width: 1920px;
+                height: 1080px;
+                margin: 0 auto;
+            }
+            
+            #theFlash {
+                width: 1920px;
+                height: 1080px;
+                margin: 0 auto;
             }
             
             .splat {
@@ -26,7 +42,8 @@ Author: Mike Newell © 2012
                 left: 0;
             }
         </style>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>-->
+        <script src='js/jquery.js'></script>
         <script src="http://localhost.com:5000/socket.io/socket.io.js"></script>
         <script>
             var vid,
@@ -53,7 +70,14 @@ Author: Mike Newell © 2012
             socket.on('splat', function(data) {
                 // run the code to activate a splat
                 console.log(data);
-                theFlash.splat();
+                if(typeof theFlash != "undefined") {
+                    theFlash.splat();
+                } else {
+                    alert('something went wrong trying another way...');
+                    theFlash = document.getElementById("theFlash");
+                    theFlash.splat();
+                }
+                
             });
             
             socket.on('spitball', function(data) {
@@ -65,10 +89,17 @@ Author: Mike Newell © 2012
             (function($) {
                 
                 $(window).load(function() {
+//                    alert('window loaded!');
                     // video
                     vid = document.getElementById('video');
                     bar = document.getElementById('bar');
                     theFlash = document.getElementById("theFlash");
+                    
+                    if(typeof theFlash != "undefined") {
+                        alert('splat ready!');
+                    } else {
+                        alert('something went wrong and we couldnt load flash in time');
+                    }
                     
                     vid.addEventListener('canplaythrough', function(evt) {
                         canPlay = true;
@@ -91,14 +122,14 @@ Author: Mike Newell © 2012
                 <source src="videos/splash.ogv" type="video/ogv" />
                 Your browser does not support the video tag.
             </video>-->
-            <video id="video" width="1280" height="720" controls="controls" autoplay="autoplay" loop="loop">
-                <source src="videos/icarly.mp4" type="video/mp4" />
-                <source src="videos/icarly.webm" type="video/webm" />
-                <source src="videos/icarly.ogv" type="video/ogv" />
+            <video id="video" width="1920" height="1080" autoplay="autoplay" loop="loop">
+                <source src="videos/vic.mp4" type="video/mp4" />
+                <source src="videos/vic.webm" type="video/webm" />
+                <source src="videos/vic.ogv" type="video/ogv" />
                 Your browser does not support the video tag.
             </video>
             
-            <object id="theFlash" class="splat" type="application/x-shockwave-flash" data="videos/splat.swf" width="1280" height="700">
+            <object id="theFlash" class="splat" type="application/x-shockwave-flash" data="videos/splat.swf" width="1920" height="1080">
                     <param name="movie" value="videos/splat.swf" />
                     <param name="quality" value="high" />
                     <param name="bgcolor" value="#999999" />
