@@ -4,3 +4,4 @@
 /prototype2/node_modules/.bin/
 /prototype2/node_modules/socket.io/node_modules/socket.io-client/node_modules/.bin/
 /prototype2/node_modules/socket.io/node_modules/socket.io-client/node_modules/ws/build/Release/.deps/
+/prototype2/node_modules/
