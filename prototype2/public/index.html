@@ -49,7 +49,9 @@ Author: Mike Newell © 2012
                 canPlay = false,
                 duration,
                 bar,
-                theFlash;
+                theFlash,
+                playing = true,
+                muted = true;
             
 //            var socket = io.connect('169.254.60.224:5000');
             
@@ -105,10 +107,55 @@ Author: Mike Newell © 2012
                     vid.addEventListener('canplaythrough', function(evt) {
                         canPlay = true;
                         duration = vid.duration;
+                        vid.
                         console.log('can play ' + canPlay);
                         console.log('vid ' + vid);
                         console.log('duration ' + vid.duration);
                     }, false);
+                    
+                    $('#video').prop('muted', true);
+                    
+//                    $('body').on('click', function() {
+//                        if(playing) {
+//                            vid.pause();
+//                            playing = false;
+//                        } else {
+//                            vid.play();
+//                            playing = true;
+//                        }
+//                    });
+                    
+                    $(window).on('keydown', function(evt) {
+                        if(playing) {
+                            
+                            // "s" key
+                            if(evt.keyCode == 83) {
+
+                                if(muted) {
+                                    $('#video').prop('muted', false);
+                                    muted = false;
+                                } else {
+                                    $('#video').prop('muted', true);
+                                    muted = true;
+                                }
+
+                            }
+                        }
+                        
+                        // "p" key
+                        if(evt.keyCode == 80) {
+                            
+                            if(playing) {
+                                vid.pause();
+                                playing = false;
+                            } else {
+                                vid.play();
+                                playing = true;
+                            }
+                            
+                        }
+                        
+                    });
                     
                 });
             })(jQuery);
