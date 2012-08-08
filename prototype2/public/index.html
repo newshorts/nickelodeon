@@ -74,7 +74,7 @@ Author: Mike Newell © 2012
                 if(typeof theFlash != "undefined") {
                     theFlash.splat();
                 } else {
-                    alert('something went wrong trying another way...');
+//                    alert('something went wrong trying another way...');
                     theFlash = document.getElementById("theFlash");
                     theFlash.splat();
                 }
@@ -97,9 +97,9 @@ Author: Mike Newell © 2012
                     theFlash = document.getElementById("theFlash");
                     
                     if(typeof theFlash != "undefined") {
-                        alert('splat ready!');
+//                        alert('splat ready!');
                     } else {
-                        alert('something went wrong and we couldnt load flash in time');
+//                        alert('something went wrong and we couldnt load flash in time');
                     }
                     
                     vid.addEventListener('canplaythrough', function(evt) {
@@ -130,8 +130,8 @@ Author: Mike Newell © 2012
                 Your browser does not support the video tag.
             </video>
             
-            <object id="theFlash" class="splat" type="application/x-shockwave-flash" data="videos/splat.swf" width="1920" height="1080">
-                    <param name="movie" value="videos/splat.swf" />
+            <object id="theFlash" class="splat" type="application/x-shockwave-flash" data="videos/splat2.swf" width="1920" height="1080">
+                    <param name="movie" value="videos/splat2.swf" />
                     <param name="quality" value="high" />
                     <param name="bgcolor" value="#999999" />
                     <param name="play" value="true" />

@@ -13,6 +13,21 @@ app.listen(port, function() {
     console.log("Listening on " + port);
 });
 
+app.get('/ipad', function(req, res) {
+    res.send('hello world');
+    io.sockets.emit('output', req.body);
+});
+
+app.get('/splat', function(req, res) {
+    res.send('hello world');
+    io.sockets.emit('splat', req.body);
+});
+
+app.get('/spitball', function(req, res) {
+    res.send('hello world');
+    io.sockets.emit('spitball', req.body);
+});
+
 app.post('/ipad', function(req, res) {
     res.send('hello world');
     io.sockets.emit('output', req.body);
@@ -27,6 +42,8 @@ app.post('/spitball', function(req, res) {
     res.send('hello world');
     io.sockets.emit('spitball', req.body);
 });
+
+
 
 io.sockets.on('connection', function(socket) {
     
