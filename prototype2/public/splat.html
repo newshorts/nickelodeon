@@ -6,7 +6,7 @@ Author: Mike Newell © 2012
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Nickelodeon || Site</title>
+        <title>Nickelodeon || Splat</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <style>
             body {
@@ -50,8 +50,8 @@ Author: Mike Newell © 2012
                 duration,
                 bar,
                 theFlash,
-                spit1 = false,
-                spit2 = false;
+                playing = true,
+                muted = true;
             
 //            var socket = io.connect('169.254.60.224:5000');
             
@@ -70,37 +70,22 @@ Author: Mike Newell © 2012
                 
             });
             
-//            socket.on('splat', function(data) {
-//                // run the code to activate a splat
-//                console.log(data);
-//                if(typeof theFlash != "undefined") {
-//                    theFlash.splat();
-//                } else {
+            socket.on('splat', function(data) {
+                // run the code to activate a splat
+                console.log(data);
+                if(typeof theFlash != "undefined") {
+                    theFlash.splat();
+                } else {
 //                    alert('something went wrong trying another way...');
-//                    theFlash = document.getElementById("theFlash");
-//                    theFlash.splat();
-//                }
-//                
-//            });
+                    theFlash = document.getElementById("theFlash");
+                    theFlash.splat();
+                }
+                
+            });
             
             socket.on('spitball', function(data) {
                 // run the code to activate a splat
                 console.log(data);
-                
-                if(spit1 == false) {
-                    theFlash.splat1();
-                    spit1 = true;
-                } else if(spit1 && spit2 == false) {
-                    theFlash.splat2();
-                    spit2 = true;
-                } else if(spit1 && spit2) {
-                    theFlash.fairyOUT();
-                    spit1 = false;
-                    spit2 = false;
-                    setTimeout(function() {
-                        theFlash.fairyIN();
-                    }, 1000);
-                }
                 
             });
             
@@ -109,33 +94,68 @@ Author: Mike Newell © 2012
                 $(window).load(function() {
 //                    alert('window loaded!');
                     // video
-//                    vid = document.getElementById('video');
+                    vid = document.getElementById('video');
                     bar = document.getElementById('bar');
                     theFlash = document.getElementById("theFlash");
                     
-                    console.log("before calling")
-                    
                     if(typeof theFlash != "undefined") {
 //                        alert('splat ready!');
-                        theFlash.fairyIN();
                     } else {
-                        alert('something went wrong and we couldnt load flash in time');
+//                        alert('something went wrong and we couldnt load flash in time');
                     }
                     
-                    console.log("after calling")
+                    vid.addEventListener('canplaythrough', function(evt) {
+                        canPlay = true;
+                        duration = vid.duration;
+                        vid.
+                        console.log('can play ' + canPlay);
+                        console.log('vid ' + vid);
+                        console.log('duration ' + vid.duration);
+                    }, false);
                     
-                    setTimeout(function() {
-                        theFlash.fairyIN();
-                        console.log("called delayed")
-                    }, 1000);
+                    $('#video').prop('muted', true);
                     
-//                    vid.addEventListener('canplaythrough', function(evt) {
-//                        canPlay = true;
-//                        duration = vid.duration;
-//                        console.log('can play ' + canPlay);
-//                        console.log('vid ' + vid);
-//                        console.log('duration ' + vid.duration);
-//                    }, false);
+//                    $('body').on('click', function() {
+//                        if(playing) {
+//                            vid.pause();
+//                            playing = false;
+//                        } else {
+//                            vid.play();
+//                            playing = true;
+//                        }
+//                    });
+                    
+                    $(window).on('keydown', function(evt) {
+                        if(playing) {
+                            
+                            // "s" key
+                            if(evt.keyCode == 83) {
+
+                                if(muted) {
+                                    $('#video').prop('muted', false);
+                                    muted = false;
+                                } else {
+                                    $('#video').prop('muted', true);
+                                    muted = true;
+                                }
+
+                            }
+                        }
+                        
+                        // "p" key
+                        if(evt.keyCode == 80) {
+                            
+                            if(playing) {
+                                vid.pause();
+                                playing = false;
+                            } else {
+                                vid.play();
+                                playing = true;
+                            }
+                            
+                        }
+                        
+                    });
                     
                 });
             })(jQuery);
@@ -150,15 +170,15 @@ Author: Mike Newell © 2012
                 <source src="videos/splash.ogv" type="video/ogv" />
                 Your browser does not support the video tag.
             </video>-->
-<!--            <video id="video" width="1920" height="1080" autoplay="autoplay" loop="loop">
+            <video id="video" width="1920" height="1080" autoplay="autoplay" loop="loop">
                 <source src="videos/vic.mp4" type="video/mp4" />
                 <source src="videos/vic.webm" type="video/webm" />
                 <source src="videos/vic.ogv" type="video/ogv" />
                 Your browser does not support the video tag.
-            </video>-->
+            </video>
             
-            <object id="theFlash" class="splat" type="application/x-shockwave-flash" data="videos/nickelodeon3.swf" width="1920" height="1080">
-                    <param name="movie" value="videos/nickelodeon3.swf" />
+            <object id="theFlash" class="splat" type="application/x-shockwave-flash" data="videos/splat2.swf" width="1920" height="1080">
+                    <param name="movie" value="videos/splat2.swf" />
                     <param name="quality" value="high" />
                     <param name="bgcolor" value="#999999" />
                     <param name="play" value="true" />
