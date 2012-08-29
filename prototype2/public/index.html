@@ -8,9 +8,10 @@ Author: Mike Newell © 2012
     <head>
         <title>Nickelodeon || Map</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
         <style>
             body {
-                background-color: black;
+                background-color: #ededed;
             }
             
             div {
@@ -18,39 +19,84 @@ Author: Mike Newell © 2012
             }
             
             #wrap {
-                width: 1920px;
-                height: 1080px;
-                margin: 150px auto;
+                width: 785px;
+                height: 525px;
+                margin: 0 auto;
                 position: relative;
             }
             
-            video {
-                width: 1920px;
-                height: 1080px;
-                margin: 0 auto;
-            }
-            
-            #theFlash {
-                width: 1920px;
-                height: 1080px;
-                margin: 0 auto;
-            }
-            
-            .splat {
+            #nick-logo {
+                width: 375px;
                 position: absolute;
-                top: 0;
-                left: 0;
+                left: 240px;
             }
+            
+/*            #home-link {
+                position: absolute;
+                top: 80px;
+                left: 594px;
+            }
+            
+            #home-link img:hover {
+                -webkit-filter: grayscale(0.5);
+            }*/
+            
+            #splat-link {
+                position: absolute;
+                top: 146px;
+                left: 110px;
+            }
+            
+            #splat-link a {
+                display: block;
+                width: 310px;
+                height: 356px;
+                background: url(images/splat-link-bg.png) scroll no-repeat;
+            }
+            
+            #splat-link a:hover {
+                background: url(images/splat-link-bg-hover.png) scroll no-repeat;
+            }
+            
+            #spit-link {
+                position: absolute;
+                top: 146px;
+                left: 428px;
+            }
+            
+            #spit-link a {
+                display: block;
+                width: 310px;
+                height: 370px;
+                background: url(images/spit-link-bg.png) scroll no-repeat;
+            }
+            
+            #spit-link a:hover {
+                background: url(images/spit-link-bg-hover.png) scroll no-repeat;
+            }
+            
+            #splat-link a:active, #spit-link a:active {
+                position: relative;
+                top: 3px;
+            }
+            
         </style>
         <script src='js/jquery.js'></script>
     </head>
     <body>
         <div id="wrap">
-            <ul>
-                <li><a href="splat.html"><img src="" alt="splat" /></a></li>
-                <li><a href="spit.html"><img src="" alt="spit" /></a></li>
-                <li><a href="site.html"><img src="" alt="site" /></a></li>
-            </ul>
+            <div id="nick-logo">
+                <img src="images/nick-logo.png" />
+            </div>
+            <div id="home-link" class="home-left">
+                <a href="index.html"><img src="images/home.png" alt="home"/></a>
+            </div>
+            <div id="splat-link">
+                <a href="splat.html"></a>
+            </div>
+            <div id="spit-link">
+                <a href="spit.html"></a>
+            </div>
         </div>
     </body>
 </html>
